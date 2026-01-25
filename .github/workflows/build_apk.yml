@@ -67,7 +67,7 @@ jobs:
       # 8️⃣ Renommer l'APK avec le numéro de build
       - name: Rename APK with version
         run: |
-          mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/jade-reader-v${{ github.run_number }}.apk
+          mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/noti-v${{ github.run_number }}.apk
 
       # 9️⃣ Créer une GitHub Release et y attacher l’APK
       - name: Create GitHub Release
@@ -75,7 +75,10 @@ jobs:
         with:
           tag_name: v1.0.${{ github.run_number }}
           name: Release v1.0.${{ github.run_number }}
-          files: build/app/outputs/flutter-apk/jade-reader-v${{ github.run_number }}.apk
+          files: build/app/outputs/flutter-apk/noti-v${{ github.run_number }}.apk
+          draft: false
+          prerelease: false
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
