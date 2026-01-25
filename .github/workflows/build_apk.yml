@@ -1,0 +1,81 @@
+name: Build Flutter APK
+
+on:
+  push:
+    branches:
+      - production
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # nécessaire pour créer une release
+
+    steps:
+      # 1️⃣ Checkout du code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2️⃣ Setup Java (nécessaire pour Gradle)
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
+
+      # 3️⃣ Setup Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      # 4️⃣ Cache Pub dependencies
+      - name: Cache Pub dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ runner.tool_cache }}/flutter
+            ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
+
+      # 5️⃣ Install Flutter dependencies
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 6️⃣ Recréer le keystore depuis le secret Base64
+      - name: Decode JKS from Base64
+        run: |
+          mkdir -p android
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android/release.jks
+        shell: bash
+
+      # 7️⃣ Build APK signé via Gradle
+      - name: Build signed APK
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        run: flutter build apk --release --build-number=${{ github.run_number }}
+
+      # 8️⃣ Renommer l'APK avec le numéro de build
+      - name: Rename APK with version
+        run: |
+          mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/jade-reader-v${{ github.run_number }}.apk
+
+      # 9️⃣ Créer une GitHub Release et y attacher l’APK
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: Release v1.0.${{ github.run_number }}
+          files: build/app/outputs/flutter-apk/jade-reader-v${{ github.run_number }}.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
