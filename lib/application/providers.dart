@@ -10,7 +10,7 @@ IExamRepository examRepository(ExamRepositoryRef ref) {
   return HiveExamRepository();
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 LocalNotificationService notificationService(NotificationServiceRef ref) {
   return LocalNotificationService();
 }
