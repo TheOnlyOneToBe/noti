@@ -4,11 +4,17 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../widgets/reminder_preview_widget.dart';
 import '../../application/notifiers/filiere_notifier.dart';
+import '../../domain/entities/epreuve.dart';
 
 class AddEpreuvePage extends ConsumerStatefulWidget {
   final String filiereId;
+  final Epreuve? epreuve;
 
-  const AddEpreuvePage({super.key, required this.filiereId});
+  const AddEpreuvePage({
+    super.key, 
+    required this.filiereId,
+    this.epreuve,
+  });
 
   @override
   ConsumerState<AddEpreuvePage> createState() => _AddEpreuvePageState();
@@ -18,15 +24,30 @@ class _AddEpreuvePageState extends ConsumerState<AddEpreuvePage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   
-  DateTime _selectedDate = DateTime.now();
-  TimeOfDay _startTime = const TimeOfDay(hour: 8, minute: 0);
-  TimeOfDay _endTime = const TimeOfDay(hour: 10, minute: 0);
+  late DateTime _selectedDate;
+  late TimeOfDay _startTime;
+  late TimeOfDay _endTime;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.epreuve != null) {
+      _nameController.text = widget.epreuve!.name;
+      _selectedDate = widget.epreuve!.date;
+      _startTime = TimeOfDay.fromDateTime(widget.epreuve!.startTime);
+      _endTime = TimeOfDay.fromDateTime(widget.epreuve!.endTime);
+    } else {
+      _selectedDate = DateTime.now();
+      _startTime = const TimeOfDay(hour: 8, minute: 0);
+      _endTime = const TimeOfDay(hour: 10, minute: 0);
+    }
+  }
 
   Future<void> _pickDate() async {
     final picked = await showDatePicker(
       context: context,
       initialDate: _selectedDate,
-      firstDate: DateTime.now(),
+      firstDate: DateTime.now().subtract(const Duration(days: 365)), // Allow past dates for editing
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
     if (picked != null) {
@@ -64,10 +85,11 @@ class _AddEpreuvePageState extends ConsumerState<AddEpreuvePage> {
     final startDateTime = _combineDateTime(_selectedDate, _startTime);
     final endDateTime = _combineDateTime(_selectedDate, _endTime);
     final dateFormat = DateFormat.yMMMMEEEEd('fr_FR');
+    final isEditing = widget.epreuve != null;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Nouvelle Épreuve'),
+        title: Text(isEditing ? 'Modifier l\'épreuve' : 'Nouvelle Épreuve'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -179,23 +201,33 @@ class _AddEpreuvePageState extends ConsumerState<AddEpreuvePage> {
                       return;
                     }
 
-                    await ref.read(filiereNotifierProvider.notifier).addEpreuve(
-                          widget.filiereId,
-                          _nameController.text,
-                          _selectedDate,
-                          startDateTime,
-                          endDateTime,
-                        );
+                    if (isEditing) {
+                      final updatedEpreuve = widget.epreuve!.copyWith(
+                        name: _nameController.text,
+                        date: _selectedDate,
+                        startTime: startDateTime,
+                        endTime: endDateTime,
+                      );
+                      await ref.read(filiereNotifierProvider.notifier).updateEpreuve(updatedEpreuve);
+                    } else {
+                      await ref.read(filiereNotifierProvider.notifier).addEpreuve(
+                            widget.filiereId,
+                            _nameController.text,
+                            _selectedDate,
+                            startDateTime,
+                            endDateTime,
+                          );
+                    }
                     
                     if (context.mounted) {
                       context.pop();
                     }
                   }
                 },
-                icon: const Icon(Icons.check),
-                label: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  child: Text('Planifier l\'épreuve'),
+                icon: Icon(isEditing ? Icons.save : Icons.check),
+                label: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Text(isEditing ? 'Enregistrer les modifications' : 'Planifier l\'épreuve'),
                 ),
               ),
             ],
