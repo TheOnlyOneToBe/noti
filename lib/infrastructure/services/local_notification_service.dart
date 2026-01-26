@@ -123,9 +123,9 @@ class LocalNotificationService {
 
       const AndroidNotificationDetails androidPlatformChannelSpecifics =
           AndroidNotificationDetails(
-        'manhua_channel',
-        'Manhua Notifications',
-        channelDescription: 'Notifications for Manhua updates and creations',
+        'noti_channel',
+        'Notification Notifications',
+        channelDescription: 'Notifications for general updates and creations',
         importance: Importance.max,
         priority: Priority.high,
         showWhen: true,
@@ -162,7 +162,7 @@ class LocalNotificationService {
     try {
       const AndroidNotificationDetails androidPlatformChannelSpecifics =
           AndroidNotificationDetails(
-        'manhua_channel',
+        'noti_channel',
         'Test Notifications',
         channelDescription: 'Channel for test notifications',
         importance: Importance.max,
@@ -176,7 +176,7 @@ class LocalNotificationService {
       await _notificationsPlugin.show(
         0,
         'Test Notification',
-        'This is a test notification from Jade Reader',
+        'This is a test notification from noti',
         platformChannelSpecifics,
         payload: jsonEncode({'type': 'test'}),
       );
