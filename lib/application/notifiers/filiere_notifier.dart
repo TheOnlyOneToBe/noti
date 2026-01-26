@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
+import 'dart:convert';
 import '../../domain/entities/filiere.dart';
 import '../../domain/entities/epreuve.dart';
 import '../../domain/services/notification_schedule_service.dart';
@@ -13,6 +14,16 @@ class FiliereNotifier extends _$FiliereNotifier {
   Future<List<Filiere>> build() async {
     final repository = ref.watch(examRepositoryProvider);
     return repository.getFilieres();
+  }
+
+  Future<Epreuve?> getEpreuve(String id) async {
+    final filieres = await future;
+    for (final filiere in filieres) {
+      try {
+        return filiere.epreuves.firstWhere((e) => e.id == id);
+      } catch (_) {}
+    }
+    return null;
   }
 
   Future<void> addFiliere(String name) async {
@@ -114,11 +125,17 @@ class FiliereNotifier extends _$FiliereNotifier {
     triggers.forEach((triggerTime, message) {
       if (triggerTime.isAfter(DateTime.now())) {
         final notificationId = (epreuve.id.hashCode + index) & 0x7FFFFFFF;
+        final payload = jsonEncode({
+          'type': 'epreuve_details',
+          'epreuveId': epreuve.id,
+        });
+
         notificationService.scheduleNotification(
           id: notificationId,
           title: "Rappel Examen: ${epreuve.name}",
           body: message,
           scheduledDate: triggerTime,
+          payload: payload,
         );
       }
       index++;

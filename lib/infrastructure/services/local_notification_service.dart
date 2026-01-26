@@ -59,24 +59,15 @@ class LocalNotificationService {
           _notificationsPlugin.resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>();
 
-      // Channel for Manhua
-      const AndroidNotificationChannel notiChannel = AndroidNotificationChannel(
-        'noti_channel',
-        'Notification Notifications',
-        description: 'Notifications for general updates and creations',
+      // Channel for Exams
+      const AndroidNotificationChannel examChannel = AndroidNotificationChannel(
+        'exam_channel',
+        'Exam Notifications',
+        description: 'Notifications for exam reminders',
         importance: Importance.max,
       );
 
-      // Channel for Exams (keeping existing functionality)
-      const AndroidNotificationChannel examChannel = AndroidNotificationChannel(
-          'exam_channel',
-          'Exam Notifications',
-          description: 'Notifications for exam reminders',
-          importance: Importance.max,
-      );
-
       if (androidImplementation != null) {
-        await androidImplementation.createNotificationChannel(notiChannel);
         await androidImplementation.createNotificationChannel(examChannel);
         
         final bool? granted = await androidImplementation.requestNotificationsPermission();
@@ -106,10 +97,11 @@ class LocalNotificationService {
     _onNotificationClick.close();
   }
 
-  Future<void> showManhuaNotification({
-    required int manhuaId,
+  Future<void> showExamNotification({
+    required int id,
     required String title,
     required String body,
+    String? payload,
   }) async {
     if (!_isInitialized) {
       debugPrint('LocalNotificationService: Not initialized, initializing now...');
@@ -117,15 +109,11 @@ class LocalNotificationService {
     }
 
     try {
-      // Generate a unique ID that fits in 32-bit integer (0 to 2,147,483,647)
-      // Use remainder to ensure it stays within bounds
-      final notificationId = DateTime.now().millisecondsSinceEpoch.remainder(100000);
-
       const AndroidNotificationDetails androidPlatformChannelSpecifics =
           AndroidNotificationDetails(
-        'noti_channel',
-        'Notification Notifications',
-        channelDescription: 'Notifications for general updates and creations',
+        'exam_channel',
+        'Exam Notifications',
+        channelDescription: 'Notifications for exam reminders',
         importance: Importance.max,
         priority: Priority.high,
         showWhen: true,
@@ -134,15 +122,10 @@ class LocalNotificationService {
       const NotificationDetails platformChannelSpecifics =
           NotificationDetails(android: androidPlatformChannelSpecifics);
 
-      final payload = jsonEncode({
-        'type': 'manhua_details',
-        'manhuaId': manhuaId,
-      });
-
-      debugPrint('LocalNotificationService: Showing notification [$notificationId]: $title - $body');
+      debugPrint('LocalNotificationService: Showing notification [$id]: $title - $body');
 
       await _notificationsPlugin.show(
-        notificationId,
+        id,
         title,
         body,
         platformChannelSpecifics,
@@ -190,6 +173,7 @@ class LocalNotificationService {
     required String title,
     required String body,
     required DateTime scheduledDate,
+    String? payload,
   }) async {
     if (!_isInitialized) {
       await initialize();
@@ -207,12 +191,19 @@ class LocalNotificationService {
           channelDescription: 'Notifications for exam reminders',
           importance: Importance.max,
           priority: Priority.high,
+          enableVibration: true,
+          playSound: true,
         ),
-        iOS: DarwinNotificationDetails(),
+        iOS: DarwinNotificationDetails(
+          presentSound: true,
+          presentAlert: true,
+          presentBanner: true,
+        ),
       ),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
+      payload: payload,
     );
   }
 

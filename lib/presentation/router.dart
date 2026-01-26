@@ -6,6 +6,7 @@ import 'pages/home_page.dart';
 import 'pages/filiere_detail_page.dart';
 import 'pages/add_epreuve_page.dart';
 import 'pages/epreuves_page.dart';
+import 'pages/epreuve_detail_page.dart';
 import 'pages/filieres_page.dart';
 import 'pages/settings_page.dart';
 import 'widgets/scaffold_with_nav_bar.dart';
@@ -42,6 +43,16 @@ final router = GoRouter(
             GoRoute(
               path: '/epreuves',
               builder: (context, state) => const EpreuvesPage(),
+              routes: [
+                GoRoute(
+                  path: 'detail/:id',
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) {
+                    final id = state.pathParameters['id']!;
+                    return EpreuveDetailPage(epreuveId: id);
+                  },
+                ),
+              ],
             ),
           ],
         ),
