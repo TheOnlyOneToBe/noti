@@ -154,8 +154,8 @@ class LocalNotificationService {
         const NotificationDetails(
           android: AndroidNotificationDetails(
             'exam_channel',
-            'Exam Notifications',
-            channelDescription: 'Notifications for exam reminders',
+            'Notifications d\'examen',
+            channelDescription: 'Notifications pour les rappels d\'examen',
             importance: Importance.max,
             priority: Priority.high,
             enableVibration: true,
