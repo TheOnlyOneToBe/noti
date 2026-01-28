@@ -1,11 +1,23 @@
 import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timezone/data/latest.dart' as tz;
+import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 final localNotificationServiceProvider = Provider((ref) => LocalNotificationService());
+
+/// Handler global pour les notifications en background
+/// Doit être une fonction top-level ou static
+@pragma('vm:entry-point')
+void notificationTapBackground(NotificationResponse notificationResponse) {
+  debugPrint('notification(${notificationResponse.id}) action tapped: '
+      '${notificationResponse.actionId} with'
+      ' payload: ${notificationResponse.payload}');
+}
 
 class LocalNotificationService {
   final FlutterLocalNotificationsPlugin _notificationsPlugin =
@@ -23,17 +35,7 @@ class LocalNotificationService {
 
     try {
       // 1. Initialiser la base de données des fuseaux horaires
-      tz.initializeTimeZones();
-      
-      // Configuration de la location locale
-      // Note: Idéalement, utiliser un package comme flutter_timezone pour obtenir la vraie zone
-      // Pour l'instant, on se base sur la configuration par défaut ou une valeur sûre
-      try {
-        tz.setLocalLocation(tz.local);
-      } catch (e) {
-        debugPrint('LocalNotificationService: Error setting local location: $e');
-        // Fallback to UTC or a specific zone if needed, but usually safe to proceed
-      }
+      await _configureLocalTimeZone();
 
       const AndroidInitializationSettings initializationSettingsAndroid =
           AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -55,6 +57,7 @@ class LocalNotificationService {
         onDidReceiveNotificationResponse: (NotificationResponse response) {
           _onNotificationClick.add(response.payload);
         },
+        onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
       );
 
       // Récupération du payload si l'app a été lancée via notif
@@ -89,6 +92,25 @@ class LocalNotificationService {
       debugPrint('LocalNotificationService: Initialized successfully');
     } catch (e) {
       debugPrint('LocalNotificationService: Error initializing: $e');
+    }
+  }
+
+  Future<void> _configureLocalTimeZone() async {
+    if (kIsWeb || Platform.isLinux) {
+      return;
+    }
+    tz.initializeTimeZones();
+    try {
+      final String timeZoneName = await FlutterTimezone.getLocalTimezone();
+      tz.setLocalLocation(tz.getLocation(timeZoneName));
+    } catch (e) {
+      debugPrint('LocalNotificationService: Error setting local location: $e');
+      // Fallback si nécessaire
+      try {
+        tz.setLocalLocation(tz.local);
+      } catch (e) {
+        // Ignorer si déjà défini ou erreur
+      }
     }
   }
 
