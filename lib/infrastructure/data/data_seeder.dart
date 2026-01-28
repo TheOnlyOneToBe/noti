@@ -4,11 +4,13 @@ import 'package:flutter/foundation.dart';
 import '../../domain/entities/filiere.dart';
 import '../../domain/entities/epreuve.dart';
 import '../../domain/repositories/i_exam_repository.dart';
+import '../../domain/services/notification_schedule_service.dart';
 
 class DataSeeder {
   final IExamRepository repository;
+  final NotificationScheduleService notificationScheduleService;
 
-  DataSeeder(this.repository);
+  DataSeeder(this.repository, this.notificationScheduleService);
 
   Future<void> seed() async {
     final filieres = await repository.getFilieres();
@@ -35,15 +37,25 @@ class DataSeeder {
         // 2. Ajout des épreuves
         final epreuvesJson = filiereJson['epreuves'] as List<dynamic>;
         for (final epreuveJson in epreuvesJson) {
-          final epreuve = Epreuve(
+          var epreuve = Epreuve(
             id: epreuveJson['id'],
             name: epreuveJson['name'],
             filiereId: filiere.id, // Assurer que l'ID correspond
             date: DateTime.parse(epreuveJson['date']),
             startTime: DateTime.parse(epreuveJson['startTime']),
             endTime: DateTime.parse(epreuveJson['endTime']),
-            notificationIds: [], // Sera géré par le scheduler si besoin, ou vide
+            notificationIds: [],
           );
+
+          // Planification des notifications
+          try {
+            final scheduledIds = await notificationScheduleService.scheduleNotificationsForEpreuve(epreuve);
+            epreuve = epreuve.copyWith(notificationIds: scheduledIds);
+            debugPrint('DataSeeder: Notifications planifiées pour ${epreuve.name} (IDs: $scheduledIds)');
+          } catch (e) {
+            debugPrint('DataSeeder: Erreur lors de la planification des notifications pour ${epreuve.name}: $e');
+            // On continue même si la notif échoue
+          }
           
           await repository.addEpreuve(epreuve);
         }
