@@ -4,21 +4,62 @@ import 'package:go_router/go_router.dart';
 import '../../application/notifiers/filiere_notifier.dart';
 import '../../domain/entities/filiere.dart';
 
-class FilieresPage extends ConsumerWidget {
+class FilieresPage extends ConsumerStatefulWidget {
   const FilieresPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<FilieresPage> createState() => _FilieresPageState();
+}
+
+class _FilieresPageState extends ConsumerState<FilieresPage> {
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final filieresState = ref.watch(filiereNotifierProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Filières')),
+      appBar: AppBar(
+        title: const Text('Filières'),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: 'Rechercher une filière...',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+              ),
+              onChanged: (_) => setState(() {}),
+            ),
+          ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showAddEditDialog(context, ref),
         child: const Icon(Icons.add),
       ),
       body: filieresState.when(
         data: (filieres) {
+          final filteredFilieres = filieres.where((f) {
+            final query = _searchController.text.toLowerCase();
+            return f.name.toLowerCase().contains(query);
+          }).toList();
+
           if (filieres.isEmpty) {
              return Center(
                child: Column(
@@ -37,11 +78,17 @@ class FilieresPage extends ConsumerWidget {
              );
           }
           
+          if (filteredFilieres.isEmpty) {
+            return const Center(
+              child: Text('Aucune filière trouvée pour cette recherche.'),
+            );
+          }
+          
           return ListView.builder(
-            itemCount: filieres.length,
+            itemCount: filteredFilieres.length,
             padding: const EdgeInsets.all(16),
             itemBuilder: (context, index) {
-              final filiere = filieres[index];
+              final filiere = filteredFilieres[index];
               final epreuveCount = filiere.epreuves.length;
               final totalDuration = filiere.epreuves.fold(
                   Duration.zero, (prev, e) => prev + e.duration);
