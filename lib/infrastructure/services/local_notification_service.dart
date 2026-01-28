@@ -1,6 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -18,13 +17,24 @@ class LocalNotificationService {
   bool _isInitialized = false;
   String? _pendingPayload;
 
+  /// Initialise le service de notification et configure les fuseaux horaires
   Future<void> initialize() async {
     if (_isInitialized) return;
 
-    // Initialize timezones for scheduled notifications
-    tz.initializeTimeZones();
-
     try {
+      // 1. Initialiser la base de données des fuseaux horaires
+      tz.initializeTimeZones();
+      
+      // Configuration de la location locale
+      // Note: Idéalement, utiliser un package comme flutter_timezone pour obtenir la vraie zone
+      // Pour l'instant, on se base sur la configuration par défaut ou une valeur sûre
+      try {
+        tz.setLocalLocation(tz.local);
+      } catch (e) {
+        debugPrint('LocalNotificationService: Error setting local location: $e');
+        // Fallback to UTC or a specific zone if needed, but usually safe to proceed
+      }
+
       const AndroidInitializationSettings initializationSettingsAndroid =
           AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -47,7 +57,7 @@ class LocalNotificationService {
         },
       );
 
-      // Handle app launch from notification
+      // Récupération du payload si l'app a été lancée via notif
       final NotificationAppLaunchDetails? notificationAppLaunchDetails =
           await _notificationsPlugin.getNotificationAppLaunchDetails();
       
@@ -55,25 +65,24 @@ class LocalNotificationService {
         _pendingPayload = notificationAppLaunchDetails!.notificationResponse?.payload;
       }
 
+      // Création du channel Android
       final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
           _notificationsPlugin.resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>();
 
-      // Channel for Exams
       const AndroidNotificationChannel examChannel = AndroidNotificationChannel(
         'exam_channel',
         'Exam Notifications',
         description: 'Notifications for exam reminders',
         importance: Importance.max,
+        playSound: true,
+        enableVibration: true,
       );
 
       if (androidImplementation != null) {
         await androidImplementation.createNotificationChannel(examChannel);
-        
-        final bool? granted = await androidImplementation.requestNotificationsPermission();
+        await androidImplementation.requestNotificationsPermission();
         await androidImplementation.requestExactAlarmsPermission();
-        
-        debugPrint('LocalNotificationService: Permission granted: $granted');
       }
 
       _isInitialized = true;
@@ -83,11 +92,8 @@ class LocalNotificationService {
     }
   }
 
-  /// Checks if the app was launched by a notification and emits the payload if so.
-  /// Should be called after the UI is ready to handle navigation.
   void checkPendingNotification() {
     if (_pendingPayload != null) {
-      debugPrint('LocalNotificationService: Handling pending notification payload');
       _onNotificationClick.add(_pendingPayload);
       _pendingPayload = null;
     }
@@ -97,120 +103,76 @@ class LocalNotificationService {
     _onNotificationClick.close();
   }
 
-  Future<void> showExamNotification({
-    required int id,
-    required String title,
-    required String body,
-    String? payload,
-  }) async {
-    if (!_isInitialized) {
-      debugPrint('LocalNotificationService: Not initialized, initializing now...');
-      await initialize();
-    }
-
-    try {
-      const AndroidNotificationDetails androidPlatformChannelSpecifics =
-          AndroidNotificationDetails(
-        'exam_channel',
-        'Exam Notifications',
-        channelDescription: 'Notifications for exam reminders',
-        importance: Importance.max,
-        priority: Priority.high,
-        showWhen: true,
-      );
-
-      const NotificationDetails platformChannelSpecifics =
-          NotificationDetails(android: androidPlatformChannelSpecifics);
-
-      debugPrint('LocalNotificationService: Showing notification [$id]: $title - $body');
-
-      await _notificationsPlugin.show(
-        id,
-        title,
-        body,
-        platformChannelSpecifics,
-        payload: payload,
-      );
-      debugPrint('LocalNotificationService: Notification shown successfully');
-    } catch (e) {
-      debugPrint('LocalNotificationService: Error showing notification: $e');
-    }
-  }
-
-  Future<void> showTestNotification() async {
-    if (!_isInitialized) {
-      await initialize();
-    }
-
-    try {
-      const AndroidNotificationDetails androidPlatformChannelSpecifics =
-          AndroidNotificationDetails(
-        'noti_channel',
-        'Test Notifications',
-        channelDescription: 'Channel for test notifications',
-        importance: Importance.max,
-        priority: Priority.high,
-        showWhen: true,
-      );
-
-      const NotificationDetails platformChannelSpecifics =
-          NotificationDetails(android: androidPlatformChannelSpecifics);
-
-      await _notificationsPlugin.show(
-        0,
-        'Test Notification',
-        'This is a test notification from noti',
-        platformChannelSpecifics,
-        payload: jsonEncode({'type': 'test'}),
-      );
-    } catch (e) {
-      debugPrint('Error showing test notification: $e');
-    }
-  }
-
-  Future<void> scheduleNotification({
+  /// Planifie une notification à une date précise
+  /// [scheduledDate] doit être une date future. Si elle est passée, la méthode l'ignore ou log.
+  Future<void> schedule({
     required int id,
     required String title,
     required String body,
     required DateTime scheduledDate,
     String? payload,
   }) async {
-    if (!_isInitialized) {
-      await initialize();
+    if (!_isInitialized) await initialize();
+
+    final now = DateTime.now();
+    if (scheduledDate.isBefore(now)) {
+      debugPrint('LocalNotificationService: Ignored scheduling for past date: $scheduledDate');
+      return;
     }
 
-    await _notificationsPlugin.zonedSchedule(
-      id,
-      title,
-      body,
-      tz.TZDateTime.from(scheduledDate, tz.local),
-      const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'exam_channel',
-          'Exam Notifications',
-          channelDescription: 'Notifications for exam reminders',
-          importance: Importance.max,
-          priority: Priority.high,
-          enableVibration: true,
-          playSound: true,
+    try {
+      // Conversion sécurisée vers TZDateTime
+      final tz.TZDateTime tzDate = tz.TZDateTime.from(scheduledDate, tz.local);
+
+      await _notificationsPlugin.zonedSchedule(
+        id,
+        title,
+        body,
+        tzDate,
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'exam_channel',
+            'Exam Notifications',
+            channelDescription: 'Notifications for exam reminders',
+            importance: Importance.max,
+            priority: Priority.high,
+            enableVibration: true,
+            playSound: true,
+          ),
+          iOS: DarwinNotificationDetails(
+            presentSound: true,
+            presentAlert: true,
+            presentBanner: true,
+          ),
         ),
-        iOS: DarwinNotificationDetails(
-          presentSound: true,
-          presentAlert: true,
-          presentBanner: true,
-        ),
-      ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-      payload: payload,
-    );
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        payload: payload,
+      );
+      debugPrint('LocalNotificationService: Scheduled [$id] at $tzDate');
+    } catch (e) {
+      debugPrint('LocalNotificationService: Error scheduling notification [$id]: $e');
+    }
   }
 
-  Future<void> cancelNotification(int id) async {
-    await _notificationsPlugin.cancel(id);
+  Future<void> cancel(int id) async {
+    try {
+      await _notificationsPlugin.cancel(id);
+      debugPrint('LocalNotificationService: Cancelled [$id]');
+    } catch (e) {
+      debugPrint('LocalNotificationService: Error cancelling [$id]: $e');
+    }
   }
-  
+
+  /// Annule une liste d'IDs
+  Future<void> cancelMultiple(List<int> ids) async {
+    for (final id in ids) {
+      await cancel(id);
+    }
+  }
+
+  /// Annule tout (à utiliser avec précaution)
   Future<void> cancelAll() async {
     await _notificationsPlugin.cancelAll();
   }

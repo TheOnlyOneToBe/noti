@@ -1,6 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
-import 'dart:convert';
 import '../../domain/entities/filiere.dart';
 import '../../domain/entities/epreuve.dart';
 import '../../domain/services/notification_schedule_service.dart';
@@ -65,9 +64,10 @@ class FiliereNotifier extends _$FiliereNotifier {
 
   Future<void> addEpreuve(String filiereId, String name, DateTime date, DateTime start, DateTime end) async {
     final repository = ref.read(examRepositoryProvider);
-    final notificationService = ref.read(notificationServiceProvider);
+    final scheduleService = ref.read(notificationScheduleServiceProvider);
     
-    final epreuve = Epreuve(
+    // 1. Create Epreuve
+    var epreuve = Epreuve(
       id: const Uuid().v4(),
       name: name,
       filiereId: filiereId,
@@ -76,29 +76,36 @@ class FiliereNotifier extends _$FiliereNotifier {
       endTime: end,
     );
     
-    // 1. Save to DB
+    // 2. Schedule Notifications
+    // Returns the list of actually scheduled IDs (ignoring past ones)
+    final scheduledIds = await scheduleService.scheduleNotificationsForEpreuve(epreuve);
+    
+    // 3. Update Epreuve with IDs
+    epreuve = epreuve.copyWith(notificationIds: scheduledIds);
+
+    // 4. Save to DB
     await repository.addEpreuve(epreuve);
     
-    // 2. Schedule Notifications
-    _scheduleNotifications(epreuve, notificationService);
-
-    // 3. Refresh
+    // 5. Refresh
     ref.invalidateSelf();
     await future;
   }
 
   Future<void> updateEpreuve(Epreuve epreuve) async {
     final repository = ref.read(examRepositoryProvider);
-    final notificationService = ref.read(notificationServiceProvider);
+    final scheduleService = ref.read(notificationScheduleServiceProvider);
 
-    // 1. Cancel old notifications
-    await _cancelNotifications(epreuve, notificationService);
+    // 1. Reschedule Notifications (Cancel old + Schedule new)
+    // Note: We use the epreuve passed in which might have old notificationIds, 
+    // or we might trust the service to clean up based on deterministic IDs if IDs are missing.
+    // The service handles cleanup properly.
+    final scheduledIds = await scheduleService.rescheduleNotificationsForEpreuve(epreuve);
 
-    // 2. Update DB
-    await repository.updateEpreuve(epreuve);
+    // 2. Update Epreuve with new IDs
+    final updatedEpreuve = epreuve.copyWith(notificationIds: scheduledIds);
 
-    // 3. Schedule new notifications
-    await _scheduleNotifications(epreuve, notificationService);
+    // 3. Update DB
+    await repository.updateEpreuve(updatedEpreuve);
 
     ref.invalidateSelf();
     await future;
@@ -106,47 +113,15 @@ class FiliereNotifier extends _$FiliereNotifier {
 
   Future<void> deleteEpreuve(Epreuve epreuve) async {
     final repository = ref.read(examRepositoryProvider);
-    final notificationService = ref.read(notificationServiceProvider);
+    final scheduleService = ref.read(notificationScheduleServiceProvider);
 
     // 1. Cancel notifications
-    await _cancelNotifications(epreuve, notificationService);
+    await scheduleService.cancelNotificationsForEpreuve(epreuve);
 
     // 2. Delete from DB
     await repository.deleteEpreuve(epreuve.id);
 
     ref.invalidateSelf();
     await future;
-  }
-
-  Future<void> _scheduleNotifications(Epreuve epreuve, dynamic notificationService) async {
-    final triggers = NotificationScheduleService.getScheduledNotifications(epreuve);
-    
-    int index = 0;
-    triggers.forEach((triggerTime, message) {
-      if (triggerTime.isAfter(DateTime.now())) {
-        final notificationId = (epreuve.id.hashCode + index) & 0x7FFFFFFF;
-        final payload = jsonEncode({
-          'type': 'epreuve_details',
-          'epreuveId': epreuve.id,
-        });
-
-        notificationService.scheduleNotification(
-          id: notificationId,
-          title: "Rappel Examen: ${epreuve.name}",
-          body: message,
-          scheduledDate: triggerTime,
-          payload: payload,
-        );
-      }
-      index++;
-    });
-  }
-
-  Future<void> _cancelNotifications(Epreuve epreuve, dynamic notificationService) async {
-    // Cancel potential notifications (assuming max 10 per exam)
-    for (int i = 0; i < 10; i++) {
-      final notificationId = (epreuve.id.hashCode + i) & 0x7FFFFFFF;
-      await notificationService.cancelNotification(notificationId);
-    }
   }
 }

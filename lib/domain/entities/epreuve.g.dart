@@ -14,6 +14,10 @@ _$EpreuveImpl _$$EpreuveImplFromJson(Map<String, dynamic> json) =>
       date: DateTime.parse(json['date'] as String),
       startTime: DateTime.parse(json['startTime'] as String),
       endTime: DateTime.parse(json['endTime'] as String),
+      notificationIds: (json['notificationIds'] as List<dynamic>?)
+              ?.map((e) => (e as num).toInt())
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$EpreuveImplToJson(_$EpreuveImpl instance) =>
@@ -24,4 +28,5 @@ Map<String, dynamic> _$$EpreuveImplToJson(_$EpreuveImpl instance) =>
       'date': instance.date.toIso8601String(),
       'startTime': instance.startTime.toIso8601String(),
       'endTime': instance.endTime.toIso8601String(),
+      'notificationIds': instance.notificationIds,
     };

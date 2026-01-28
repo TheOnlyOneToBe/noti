@@ -16,6 +16,7 @@ class Epreuve with _$Epreuve {
     required DateTime date,
     required DateTime startTime,
     required DateTime endTime,
+    @Default([]) List<int> notificationIds,
   }) = _Epreuve;
 
   factory Epreuve.fromJson(Map<String, dynamic> json) => _$EpreuveFromJson(json);

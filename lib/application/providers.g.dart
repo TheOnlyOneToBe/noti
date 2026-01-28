@@ -22,12 +22,11 @@ final examRepositoryProvider = AutoDisposeProvider<IExamRepository>.internal(
 
 typedef ExamRepositoryRef = AutoDisposeProviderRef<IExamRepository>;
 String _$notificationServiceHash() =>
-    r'175b0687683dd6b159f9e0c2ba36f135b085172a';
+    r'f097a76685a5945a5d3b4b64fdab7bc722b4a3fd';
 
 /// See also [notificationService].
 @ProviderFor(notificationService)
-final notificationServiceProvider =
-    AutoDisposeProvider<LocalNotificationService>.internal(
+final notificationServiceProvider = Provider<LocalNotificationService>.internal(
   notificationService,
   name: r'notificationServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -37,7 +36,6 @@ final notificationServiceProvider =
   allTransitiveDependencies: null,
 );
 
-typedef NotificationServiceRef
-    = AutoDisposeProviderRef<LocalNotificationService>;
+typedef NotificationServiceRef = ProviderRef<LocalNotificationService>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -18,7 +18,7 @@ class ReminderPreviewWidget extends StatelessWidget {
       return const Text("L'heure de fin doit être après l'heure de début.", style: TextStyle(color: Colors.red));
     }
 
-    final reminders = NotificationScheduleService.calculateReminders(duration);
+    final reminders = NotificationScheduleService.calculatePreviewReminders(duration);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

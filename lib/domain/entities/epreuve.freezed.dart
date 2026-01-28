@@ -26,6 +26,7 @@ mixin _$Epreuve {
   DateTime get date => throw _privateConstructorUsedError;
   DateTime get startTime => throw _privateConstructorUsedError;
   DateTime get endTime => throw _privateConstructorUsedError;
+  List<int> get notificationIds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +44,8 @@ abstract class $EpreuveCopyWith<$Res> {
       String filiereId,
       DateTime date,
       DateTime startTime,
-      DateTime endTime});
+      DateTime endTime,
+      List<int> notificationIds});
 }
 
 /// @nodoc
@@ -65,6 +67,7 @@ class _$EpreuveCopyWithImpl<$Res, $Val extends Epreuve>
     Object? date = null,
     Object? startTime = null,
     Object? endTime = null,
+    Object? notificationIds = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -91,6 +94,10 @@ class _$EpreuveCopyWithImpl<$Res, $Val extends Epreuve>
           ? _value.endTime
           : endTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notificationIds: null == notificationIds
+          ? _value.notificationIds
+          : notificationIds // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ) as $Val);
   }
 }
@@ -108,7 +115,8 @@ abstract class _$$EpreuveImplCopyWith<$Res> implements $EpreuveCopyWith<$Res> {
       String filiereId,
       DateTime date,
       DateTime startTime,
-      DateTime endTime});
+      DateTime endTime,
+      List<int> notificationIds});
 }
 
 /// @nodoc
@@ -128,6 +136,7 @@ class __$$EpreuveImplCopyWithImpl<$Res>
     Object? date = null,
     Object? startTime = null,
     Object? endTime = null,
+    Object? notificationIds = null,
   }) {
     return _then(_$EpreuveImpl(
       id: null == id
@@ -154,6 +163,10 @@ class __$$EpreuveImplCopyWithImpl<$Res>
           ? _value.endTime
           : endTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notificationIds: null == notificationIds
+          ? _value._notificationIds
+          : notificationIds // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 }
@@ -167,8 +180,10 @@ class _$EpreuveImpl extends _Epreuve {
       required this.filiereId,
       required this.date,
       required this.startTime,
-      required this.endTime})
-      : super._();
+      required this.endTime,
+      final List<int> notificationIds = const []})
+      : _notificationIds = notificationIds,
+        super._();
 
   factory _$EpreuveImpl.fromJson(Map<String, dynamic> json) =>
       _$$EpreuveImplFromJson(json);
@@ -185,10 +200,18 @@ class _$EpreuveImpl extends _Epreuve {
   final DateTime startTime;
   @override
   final DateTime endTime;
+  final List<int> _notificationIds;
+  @override
+  @JsonKey()
+  List<int> get notificationIds {
+    if (_notificationIds is EqualUnmodifiableListView) return _notificationIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_notificationIds);
+  }
 
   @override
   String toString() {
-    return 'Epreuve(id: $id, name: $name, filiereId: $filiereId, date: $date, startTime: $startTime, endTime: $endTime)';
+    return 'Epreuve(id: $id, name: $name, filiereId: $filiereId, date: $date, startTime: $startTime, endTime: $endTime, notificationIds: $notificationIds)';
   }
 
   @override
@@ -203,13 +226,22 @@ class _$EpreuveImpl extends _Epreuve {
             (identical(other.date, date) || other.date == date) &&
             (identical(other.startTime, startTime) ||
                 other.startTime == startTime) &&
-            (identical(other.endTime, endTime) || other.endTime == endTime));
+            (identical(other.endTime, endTime) || other.endTime == endTime) &&
+            const DeepCollectionEquality()
+                .equals(other._notificationIds, _notificationIds));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, filiereId, date, startTime, endTime);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      filiereId,
+      date,
+      startTime,
+      endTime,
+      const DeepCollectionEquality().hash(_notificationIds));
 
   @JsonKey(ignore: true)
   @override
@@ -232,7 +264,8 @@ abstract class _Epreuve extends Epreuve {
       required final String filiereId,
       required final DateTime date,
       required final DateTime startTime,
-      required final DateTime endTime}) = _$EpreuveImpl;
+      required final DateTime endTime,
+      final List<int> notificationIds}) = _$EpreuveImpl;
   const _Epreuve._() : super._();
 
   factory _Epreuve.fromJson(Map<String, dynamic> json) = _$EpreuveImpl.fromJson;
@@ -249,6 +282,8 @@ abstract class _Epreuve extends Epreuve {
   DateTime get startTime;
   @override
   DateTime get endTime;
+  @override
+  List<int> get notificationIds;
   @override
   @JsonKey(ignore: true)
   _$$EpreuveImplCopyWith<_$EpreuveImpl> get copyWith =>
