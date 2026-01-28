@@ -42,6 +42,13 @@ class _MyAppState extends ConsumerState<MyApp> {
   }
 
   Future<void> _initNotifications() async {
+    // Initialisation des données (Seeder)
+    try {
+      await ref.read(dataSeederProvider).seed();
+    } catch (e) {
+      debugPrint("Erreur lors de l'initialisation des données : $e");
+    }
+
     final notificationService = ref.read(notificationServiceProvider);
     await notificationService.initialize();
     

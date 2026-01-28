@@ -6,6 +6,20 @@ part of 'providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$dataSeederHash() => r'a1da3fa97d3e50762311bee5a3a63a3c24c5b96b';
+
+/// See also [dataSeeder].
+@ProviderFor(dataSeeder)
+final dataSeederProvider = AutoDisposeProvider<DataSeeder>.internal(
+  dataSeeder,
+  name: r'dataSeederProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$dataSeederHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef DataSeederRef = AutoDisposeProviderRef<DataSeeder>;
 String _$examRepositoryHash() => r'7ee0a12c7d9a2ef241bafe49abc70ea0321315d0';
 
 /// See also [examRepository].

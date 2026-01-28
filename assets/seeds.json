@@ -1,0 +1,1068 @@
+[
+  {
+    "id": "NURS-L200",
+    "name": "Nursing L200 (NURS L200)",
+    "epreuves": [
+      {
+        "id": "nurs-20260126-0800",
+        "name": "Parasitology & Lab Practice",
+        "filiereId": "NURS-L200",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T08:00:00",
+        "endTime": "2026-01-26T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "nurs-20260126-1000",
+        "name": "Community Nursing",
+        "filiereId": "NURS-L200",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T10:00:00",
+        "endTime": "2026-01-26T12:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "nurs-20260126-1300",
+        "name": "Obstetric and Gynaecology",
+        "filiereId": "NURS-L200",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T13:00:00",
+        "endTime": "2026-01-26T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "nurs-20260127-0800",
+        "name": "Biostatistics",
+        "filiereId": "NURS-L200",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T08:00:00",
+        "endTime": "2026-01-27T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "nurs-20260127-1000",
+        "name": "Infectious Diseases",
+        "filiereId": "NURS-L200",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T10:00:00",
+        "endTime": "2026-01-27T12:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "nurs-20260127-1300",
+        "name": "Medical Pathology I",
+        "filiereId": "NURS-L200",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T13:00:00",
+        "endTime": "2026-01-27T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "nurs-20260128-0800",
+        "name": "Communication for Behaviour",
+        "filiereId": "NURS-L200",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T08:00:00",
+        "endTime": "2026-01-28T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "nurs-20260128-1000",
+        "name": "Pediatric Nursing I",
+        "filiereId": "NURS-L200",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T10:00:00",
+        "endTime": "2026-01-28T12:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "nurs-20260128-1300",
+        "name": "Medico-Surgical Nursing",
+        "filiereId": "NURS-L200",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T13:00:00",
+        "endTime": "2026-01-28T15:00:00",
+        "notificationIds": []
+      }
+    ]
+  },
+  {
+    "id": "MLS-L200",
+    "name": "Medical Laboratory Sciences L200 (MLS L200)",
+    "epreuves": [
+      {
+        "id": "mls-20260126-0800",
+        "name": "Parasitology & Lab Practice",
+        "filiereId": "MLS-L200",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T08:00:00",
+        "endTime": "2026-01-26T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "mls-20260126-1000",
+        "name": "Community Nursing",
+        "filiereId": "MLS-L200",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T10:00:00",
+        "endTime": "2026-01-26T12:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "mls-20260126-1300",
+        "name": "Clinical Biochemistry",
+        "filiereId": "MLS-L200",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T13:00:00",
+        "endTime": "2026-01-26T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "mls-20260127-0800",
+        "name": "Biostatistics",
+        "filiereId": "MLS-L200",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T08:00:00",
+        "endTime": "2026-01-27T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "mls-20260127-1000",
+        "name": "Infectious Diseases",
+        "filiereId": "MLS-L200",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T10:00:00",
+        "endTime": "2026-01-27T12:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "mls-20260127-1300",
+        "name": "Medical Entomology",
+        "filiereId": "MLS-L200",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T13:00:00",
+        "endTime": "2026-01-27T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "mls-20260128-0800",
+        "name": "Communication for Behaviour",
+        "filiereId": "MLS-L200",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T08:00:00",
+        "endTime": "2026-01-28T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "mls-20260128-1000",
+        "name": "Clinical Bacteriology I",
+        "filiereId": "MLS-L200",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T10:00:00",
+        "endTime": "2026-01-28T12:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "mls-20260128-1300",
+        "name": "Clinical Haematology I",
+        "filiereId": "MLS-L200",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T13:00:00",
+        "endTime": "2026-01-28T15:00:00",
+        "notificationIds": []
+      }
+    ]
+  },
+  {
+    "id": "BFP",
+    "name": "BFP (probablement Bakery & Food Processing ou similaire)",
+    "epreuves": [
+      {
+        "id": "bfp-20260126-0800",
+        "name": "Entrepreneurship",
+        "filiereId": "BFP",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T08:00:00",
+        "endTime": "2026-01-26T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "bfp-20260126-1000",
+        "name": "Business Law",
+        "filiereId": "BFP",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T10:00:00",
+        "endTime": "2026-01-26T12:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "bfp-20260126-1300",
+        "name": "Practical Cookery",
+        "filiereId": "BFP",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T13:00:00",
+        "endTime": "2026-01-26T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "bfp-20260127-0800",
+        "name": "Bakery & Pastry Art Principles II",
+        "filiereId": "BFP",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T08:00:00",
+        "endTime": "2026-01-27T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "bfp-20260127-1000",
+        "name": "Culinary Art Principles II",
+        "filiereId": "BFP",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T10:00:00",
+        "endTime": "2026-01-27T12:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "bfp-20260127-1300",
+        "name": "Food Processing II",
+        "filiereId": "BFP",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T13:00:00",
+        "endTime": "2026-01-27T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "bfp-20260128-0800",
+        "name": "Accident Prevention",
+        "filiereId": "BFP",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T08:00:00",
+        "endTime": "2026-01-28T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "bfp-20260128-1300",
+        "name": "Labour Law",
+        "filiereId": "BFP",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T13:00:00",
+        "endTime": "2026-01-28T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "bfp-20260129-0800",
+        "name": "Economics",
+        "filiereId": "BFP",
+        "date": "2026-01-29",
+        "startTime": "2026-01-29T08:00:00",
+        "endTime": "2026-01-29T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "bfp-20260129-1000",
+        "name": "Applied Computing",
+        "filiereId": "BFP",
+        "date": "2026-01-29",
+        "startTime": "2026-01-29T10:00:00",
+        "endTime": "2026-01-29T12:00:00",
+        "notificationIds": []
+      }
+    ]
+  },
+  {
+    "id": "FCT",
+    "name": "FCT (probablement Fashion & Clothing Technology)",
+    "epreuves": [
+      {
+        "id": "fct-20260126-0800",
+        "name": "Entrepreneurship",
+        "filiereId": "FCT",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T08:00:00",
+        "endTime": "2026-01-26T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "fct-20260126-1000",
+        "name": "Business Law",
+        "filiereId": "FCT",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T10:00:00",
+        "endTime": "2026-01-26T12:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "fct-20260126-1300",
+        "name": "Language of Fashion / Garment Construction",
+        "filiereId": "FCT",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T13:00:00",
+        "endTime": "2026-01-26T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "fct-20260127-0800",
+        "name": "Redesign/Restore or Recycle",
+        "filiereId": "FCT",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T08:00:00",
+        "endTime": "2026-01-27T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "fct-20260127-1000",
+        "name": "Fashion Industry/Textile Analysis",
+        "filiereId": "FCT",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T10:00:00",
+        "endTime": "2026-01-27T12:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "fct-20260127-1300",
+        "name": "Pattern Drafting / Clothing Constructions / Work Organisation",
+        "filiereId": "FCT",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T13:00:00",
+        "endTime": "2026-01-27T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "fct-20260128-0800",
+        "name": "Pattern Drafting / Work Organisation",
+        "filiereId": "FCT",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T08:00:00",
+        "endTime": "2026-01-28T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "fct-20260128-1300",
+        "name": "Labour Law",
+        "filiereId": "FCT",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T13:00:00",
+        "endTime": "2026-01-28T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "fct-20260129-0800",
+        "name": "Economics",
+        "filiereId": "FCT",
+        "date": "2026-01-29",
+        "startTime": "2026-01-29T08:00:00",
+        "endTime": "2026-01-29T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "fct-20260129-1000",
+        "name": "Applied Computing",
+        "filiereId": "FCT",
+        "date": "2026-01-29",
+        "startTime": "2026-01-29T10:00:00",
+        "endTime": "2026-01-29T12:00:00",
+        "notificationIds": []
+      }
+    ]
+  },
+  {
+    "id": "HMC",
+    "name": "HMC (probablement Hotel Management & Catering)",
+    "epreuves": [
+      {
+        "id": "hmc-20260126-0800",
+        "name": "Entrepreneurship",
+        "filiereId": "HMC",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T08:00:00",
+        "endTime": "2026-01-26T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "hmc-20260126-1000",
+        "name": "Business Law",
+        "filiereId": "HMC",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T10:00:00",
+        "endTime": "2026-01-26T12:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "hmc-20260126-1300",
+        "name": "Human Resource & Management",
+        "filiereId": "HMC",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T13:00:00",
+        "endTime": "2026-01-26T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "hmc-20260127-0800",
+        "name": "Hotel Engineering",
+        "filiereId": "HMC",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T08:00:00",
+        "endTime": "2026-01-27T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "hmc-20260127-1000",
+        "name": "Culinary Technology & Food Production",
+        "filiereId": "HMC",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T10:00:00",
+        "endTime": "2026-01-27T12:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "hmc-20260127-1300",
+        "name": "House Keeping",
+        "filiereId": "HMC",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T13:00:00",
+        "endTime": "2026-01-27T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "hmc-20260128-0800",
+        "name": "Pastry & Bakery Techniques",
+        "filiereId": "HMC",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T08:00:00",
+        "endTime": "2026-01-28T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "hmc-20260128-1300",
+        "name": "Labour Law",
+        "filiereId": "HMC",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T13:00:00",
+        "endTime": "2026-01-28T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "hmc-20260129-0800",
+        "name": "Economics",
+        "filiereId": "HMC",
+        "date": "2026-01-29",
+        "startTime": "2026-01-29T08:00:00",
+        "endTime": "2026-01-29T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "hmc-20260129-1000",
+        "name": "Applied Computing",
+        "filiereId": "HMC",
+        "date": "2026-01-29",
+        "startTime": "2026-01-29T10:00:00",
+        "endTime": "2026-01-29T12:00:00",
+        "notificationIds": []
+      }
+    ]
+  },
+  {
+    "id": "SWE",
+    "name": "SWE (Software Engineering)",
+    "epreuves": [
+      {
+        "id": "swe-20260126-0800",
+        "name": "Entrepreneurship",
+        "filiereId": "SWE",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T08:00:00",
+        "endTime": "2026-01-26T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "swe-20260126-1000",
+        "name": "Business Law",
+        "filiereId": "SWE",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T10:00:00",
+        "endTime": "2026-01-26T12:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "swe-20260126-1300",
+        "name": "Factual Programming / Intro to Object Modeling",
+        "filiereId": "SWE",
+        "date": "2026-01-26",
+        "startTime": "2026-01-26T13:00:00",
+        "endTime": "2026-01-26T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "swe-20260127-0800",
+        "name": "Discrete Mathematics",
+        "filiereId": "SWE",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T08:00:00",
+        "endTime": "2026-01-27T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "swe-20260127-1000",
+        "name": "Computer Networks",
+        "filiereId": "SWE",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T10:00:00",
+        "endTime": "2026-01-27T12:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "swe-20260127-1300",
+        "name": "Operating System",
+        "filiereId": "SWE",
+        "date": "2026-01-27",
+        "startTime": "2026-01-27T13:00:00",
+        "endTime": "2026-01-27T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "swe-20260128-0800",
+        "name": "Web Programming II",
+        "filiereId": "SWE",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T08:00:00",
+        "endTime": "2026-01-28T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "swe-20260128-1000",
+        "name": "Database & SQL",
+        "filiereId": "SWE",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T10:00:00",
+        "endTime": "2026-01-28T12:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "swe-20260128-1300",
+        "name": "Advanced Data Structure",
+        "filiereId": "SWE",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T13:00:00",
+        "endTime": "2026-01-28T15:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "swe-20260128-1500",
+        "name": "Labour Law",
+        "filiereId": "SWE",
+        "date": "2026-01-28",
+        "startTime": "2026-01-28T15:00:00",
+        "endTime": "2026-01-28T17:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "swe-20260129-0800",
+        "name": "Economics",
+        "filiereId": "SWE",
+        "date": "2026-01-29",
+        "startTime": "2026-01-29T08:00:00",
+        "endTime": "2026-01-29T10:00:00",
+        "notificationIds": []
+      },
+      {
+        "id": "swe-20260129-1000",
+        "name": "Applied Computing",
+        "filiereId": "SWE",
+        "date": "2026-01-29",
+        "startTime": "2026-01-29T10:00:00",
+        "endTime": "2026-01-29T12:00:00",
+        "notificationIds": []
+      }
+    ]
+  }
+,
+{
+  "id": "CET",
+  "name": "Civil Engineering Technology (CET)",
+  "epreuves": [
+    {
+      "id": "cet-20260126-0800",
+      "name": "Entrepreneurship",
+      "filiereId": "CET",
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T08:00:00",
+      "endTime": "2026-01-26T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cet-20260126-1000",
+      "name": "Business Law",
+      "filiereId": "CET",
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T10:00:00",
+      "endTime": "2026-01-26T12:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cet-20260126-1300",
+      "name": "Foundation in Timber Design",
+      "filiereId": "CET",
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T13:00:00",
+      "endTime": "2026-01-26T15:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cet-20260127-0800",
+      "name": "Engineering Maths",
+      "filiereId": "CET",
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T08:00:00",
+      "endTime": "2026-01-27T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cet-20260127-1000",
+      "name": "Design in Steel",
+      "filiereId": "CET",
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T10:00:00",
+      "endTime": "2026-01-27T12:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cet-20260127-1300",
+      "name": "Quantity/Specification / Chemistry",
+      "filiereId": "CET",
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T13:00:00",
+      "endTime": "2026-01-27T15:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cet-20260128-0800",
+      "name": "Construction Technology",
+      "filiereId": "CET",
+      "date": "2026-01-28",
+      "startTime": "2026-01-28T08:00:00",
+      "endTime": "2026-01-28T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cet-20260128-1300",
+      "name": "Labour Law",
+      "filiereId": "CET",
+      "date": "2026-01-28",
+      "startTime": "2026-01-28T13:00:00",
+      "endTime": "2026-01-28T15:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cet-20260129-0800",
+      "name": "Economics",
+      "filiereId": "CET",
+      "date": "2026-01-29",
+      "startTime": "2026-01-29T08:00:00",
+      "endTime": "2026-01-29T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cet-20260129-1000",
+      "name": "Applied Computing",
+      "filiereId": "CET",
+      "date": "2026-01-29",
+      "startTime": "2026-01-29T10:00:00",
+      "endTime": "2026-01-29T12:00:00",
+      "notificationIds": []
+    }
+  ]
+},
+{
+  "id": "EPS",
+  "name": "Electrical Power Systems (EPS)",
+  "epreuves": [
+    {
+      "id": "eps-20260126-0800",
+      "name": "Entrepreneurship",
+      "filiereId": "EPS",
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T08:00:00",
+      "endTime": "2026-01-26T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "eps-20260126-1000",
+      "name": "Business Law",
+      "filiereId": "EPS",
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T10:00:00",
+      "endTime": "2026-01-26T12:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "eps-20260126-1300",
+      "name": "Electrical System Protection",
+      "filiereId": "EPS",
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T13:00:00",
+      "endTime": "2026-01-26T15:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "eps-20260127-0800",
+      "name": "Engineering Maths",
+      "filiereId": "EPS",
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T08:00:00",
+      "endTime": "2026-01-27T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "eps-20260127-1000",
+      "name": "System Design Analysis",
+      "filiereId": "EPS",
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T10:00:00",
+      "endTime": "2026-01-27T12:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "eps-20260127-1300",
+      "name": "Electrical Machines / Chemistry",
+      "filiereId": "EPS",
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T13:00:00",
+      "endTime": "2026-01-27T15:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "eps-20260128-1300",
+      "name": "Labour Law",
+      "filiereId": "EPS",
+      "date": "2026-01-28",
+      "startTime": "2026-01-28T13:00:00",
+      "endTime": "2026-01-28T15:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "eps-20260129-0800",
+      "name": "Economics",
+      "filiereId": "EPS",
+      "date": "2026-01-29",
+      "startTime": "2026-01-29T08:00:00",
+      "endTime": "2026-01-29T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "eps-20260129-1000",
+      "name": "Applied Computing",
+      "filiereId": "EPS",
+      "date": "2026-01-29",
+      "startTime": "2026-01-29T10:00:00",
+      "endTime": "2026-01-29T12:00:00",
+      "notificationIds": []
+    }
+  ]
+},
+{
+  "id": "AGR",
+  "name": "Agriculture / Agronomy (AGR)",
+  "epreuves": [
+    {
+      "id": "agr-20260126-0800",
+      "name": "Entrepreneurship",
+      "filiereId": "AGR",
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T08:00:00",
+      "endTime": "2026-01-26T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "agr-20260126-1000",
+      "name": "Business Law",
+      "filiereId": "AGR",
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T10:00:00",
+      "endTime": "2026-01-26T12:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "agr-20260126-1300",
+      "name": "Fruit & Farm & Resource Production Management",
+      "filiereId": "AGR",
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T13:00:00",
+      "endTime": "2026-01-26T15:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "agr-20260127-0800",
+      "name": "Soil & Water Conservation / Poultry Production",
+      "filiereId": "AGR",
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T08:00:00",
+      "endTime": "2026-01-27T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "agr-20260127-1000",
+      "name": "Post Harvest Technology",
+      "filiereId": "AGR",
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T10:00:00",
+      "endTime": "2026-01-27T12:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "agr-20260127-1300",
+      "name": "Soil Fertility",
+      "filiereId": "AGR",
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T13:00:00",
+      "endTime": "2026-01-27T15:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "agr-20260128-1000",
+      "name": "Cereal Production",
+      "filiereId": "AGR",
+      "date": "2026-01-28",
+      "startTime": "2026-01-28T10:00:00",
+      "endTime": "2026-01-28T12:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "agr-20260128-1300",
+      "name": "Labour Law",
+      "filiereId": "AGR",
+      "date": "2026-01-28",
+      "startTime": "2026-01-28T13:00:00",
+      "endTime": "2026-01-28T15:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "agr-20260129-0800",
+      "name": "Economics",
+      "filiereId": "AGR",
+      "date": "2026-01-29",
+      "startTime": "2026-01-29T08:00:00",
+      "endTime": "2026-01-29T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "agr-20260129-1000",
+      "name": "Applied Computing",
+      "filiereId": "AGR",
+      "date": "2026-01-29",
+      "startTime": "2026-01-29T10:00:00",
+      "endTime": "2026-01-29T12:00:00",
+      "notificationIds": []
+    }
+  ]
+},
+{
+  "id": "BMW",
+  "name": "BMW (Building / Mechanical / Wood)",
+  "epreuves": [
+    {
+      "id": "bmw-20260126-0800",
+      "name": "Entrepreneurship",
+      "filiereId": "BMW",
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T08:00:00",
+      "endTime": "2026-01-26T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "bmw-20260126-1000",
+      "name": "Business Law",
+      "filiereId": "BMW",
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T10:00:00",
+      "endTime": "2026-01-26T12:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "bmw-20260126-1300",
+      "name": "Jigs & Fixtures / Metrology",
+      "filiereId": "BMW",
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T13:00:00",
+      "endTime": "2026-01-26T15:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "bmw-20260127-0800",
+      "name": "Engineering Maths / Technology & Practice of MEM",
+      "filiereId": "BMW",
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T08:00:00",
+      "endTime": "2026-01-27T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "bmw-20260127-1000",
+      "name": "Numerical Control",
+      "filiereId": "BMW",
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T10:00:00",
+      "endTime": "2026-01-27T12:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "bmw-20260127-1300",
+      "name": "Chemistry",
+      "filiereId": "BMW",
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T13:00:00",
+      "endTime": "2026-01-27T15:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "bmw-20260128-1000",
+      "name": "Computer Aided Design",
+      "filiereId": "BMW",
+      "date": "2026-01-28",
+      "startTime": "2026-01-28T10:00:00",
+      "endTime": "2026-01-28T12:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "bmw-20260128-1300",
+      "name": "Non-Conventional Machining",
+      "filiereId": "BMW",
+      "date": "2026-01-28",
+      "startTime": "2026-01-28T13:00:00",
+      "endTime": "2026-01-28T15:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "bmw-20260128-1500",
+      "name": "Labour Law",
+      "filiereId": "BMW",
+      "date": "2026-01-28",
+      "startTime": "2026-01-28T15:00:00",
+      "endTime": "2026-01-28T17:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "bmw-20260129-0800",
+      "name": "Economics",
+      "filiereId": "BMW",
+      "date": "2026-01-29",
+      "startTime": "2026-01-29T08:00:00",
+      "endTime": "2026-01-29T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "bmw-20260129-1300",
+      "name": "Cost Estimation",
+      "filiereId": "BMW",
+      "date": "2026-01-29",
+      "startTime": "2026-01-29T13:00:00",
+      "endTime": "2026-01-29T15:00:00",
+      "notificationIds": []
+    }
+  ]
+},
+{
+  "id": "CWD",
+  "name": "CWD (Computer Web Design / Graphics)",
+  "epreuves": [
+    {
+      "id": "cwd-20260126-0800",
+      "name": "Entrepreneurship",
+      "filiereId": "CWD",
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T08:00:00",
+      "endTime": "2026-01-26T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cwd-20260126-1000",
+      "name": "Business Law",
+      "filiereId": "CWD",
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T10:00:00",
+      "endTime": "2026-01-26T12:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cwd-20260126-1300",
+      "name": "Factual Programming",
+      "filiereId": "CWD",
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T13:00:00",
+      "endTime": "2026-01-26T15:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cwd-20260127-0800",
+      "name": "Discrete Mathematics",
+      "filiereId": "CWD",
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T08:00:00",
+      "endTime": "2026-01-27T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cwd-20260127-1000",
+      "name": "Graphics Design",
+      "filiereId": "CWD",
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T10:00:00",
+      "endTime": "2026-01-27T12:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cwd-20260127-1300",
+      "name": "Animation III",
+      "filiereId": "CWD",
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T13:00:00",
+      "endTime": "2026-01-27T15:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cwd-20260128-0800",
+      "name": "Streaming",
+      "filiereId": "CWD",
+      "date": "2026-01-28",
+      "startTime": "2026-01-28T08:00:00",
+      "endTime": "2026-01-28T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cwd-20260128-1000",
+      "name": "Database & SQL",
+      "filiereId": "CWD",
+      "date": "2026-01-28",
+      "startTime": "2026-01-28T10:00:00",
+      "endTime": "2026-01-28T12:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cwd-20260128-1300",
+      "name": "Labour Law",
+      "filiereId": "CWD",
+      "date": "2026-01-28",
+      "startTime": "2026-01-28T13:00:00",
+      "endTime": "2026-01-28T15:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cwd-20260129-0800",
+      "name": "Economics",
+      "filiereId": "CWD",
+      "date": "2026-01-29",
+      "startTime": "2026-01-29T08:00:00",
+      "endTime": "2026-01-29T10:00:00",
+      "notificationIds": []
+    },
+    {
+      "id": "cwd-20260129-1000",
+      "name": "Applied Computing",
+      "filiereId": "CWD",
+      "date": "2026-01-29",
+      "startTime": "2026-01-29T10:00:00",
+      "endTime": "2026-01-29T12:00:00",
+      "notificationIds": []
+    }
+  ]
+}
+]

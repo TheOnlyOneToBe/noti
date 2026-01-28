@@ -6,7 +6,7 @@ part of 'filiere_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$filiereNotifierHash() => r'8f4e8c40f8deea25a686825ac351bccb1503d84a';
+String _$filiereNotifierHash() => r'd37d925a5fa920b4422b8391a67f9f8ab3f52b13';
 
 /// See also [FiliereNotifier].
 @ProviderFor(FiliereNotifier)
