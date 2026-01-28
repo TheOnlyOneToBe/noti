@@ -63,29 +63,34 @@ class FiliereNotifier extends _$FiliereNotifier {
   }
 
   Future<void> addEpreuve(String filiereId, String name, DateTime date, DateTime start, DateTime end) async {
+    await addEpreuveToFilieres([filiereId], name, date, start, end);
+  }
+
+  Future<void> addEpreuveToFilieres(List<String> filiereIds, String name, DateTime date, DateTime start, DateTime end) async {
     final repository = ref.read(examRepositoryProvider);
     final scheduleService = ref.read(notificationScheduleServiceProvider);
-    
-    // 1. Create Epreuve
-    var epreuve = Epreuve(
-      id: const Uuid().v4(),
-      name: name,
-      filiereId: filiereId,
-      date: date,
-      startTime: start,
-      endTime: end,
-    );
-    
-    // 2. Schedule Notifications
-    // Returns the list of actually scheduled IDs (ignoring past ones)
-    final scheduledIds = await scheduleService.scheduleNotificationsForEpreuve(epreuve);
-    
-    // 3. Update Epreuve with IDs
-    epreuve = epreuve.copyWith(notificationIds: scheduledIds);
 
-    // 4. Save to DB
-    await repository.addEpreuve(epreuve);
-    
+    for (final filiereId in filiereIds) {
+      // 1. Create Epreuve
+      var epreuve = Epreuve(
+        id: const Uuid().v4(),
+        name: name,
+        filiereId: filiereId,
+        date: date,
+        startTime: start,
+        endTime: end,
+      );
+
+      // 2. Schedule Notifications
+      final scheduledIds = await scheduleService.scheduleNotificationsForEpreuve(epreuve);
+
+      // 3. Update Epreuve with IDs
+      epreuve = epreuve.copyWith(notificationIds: scheduledIds);
+
+      // 4. Save to DB
+      await repository.addEpreuve(epreuve);
+    }
+
     // 5. Refresh
     ref.invalidateSelf();
     await future;

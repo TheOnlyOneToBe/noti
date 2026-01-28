@@ -28,10 +28,15 @@ class _AddEpreuvePageState extends ConsumerState<AddEpreuvePage> {
   late DateTime _selectedDate;
   late TimeOfDay _startTime;
   late TimeOfDay _endTime;
+  
+  // Selection multiple de filières
+  final List<String> _selectedFiliereIds = [];
 
   @override
   void initState() {
     super.initState();
+    _selectedFiliereIds.add(widget.filiereId); // Toujours inclure la filière courante
+    
     if (widget.epreuve != null) {
       _nameController.text = widget.epreuve!.name;
       _selectedDate = widget.epreuve!.date;
@@ -154,7 +159,66 @@ class _AddEpreuvePageState extends ConsumerState<AddEpreuvePage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
+
+              // 3.5. Sélection des filières (Seulement en création)
+              if (!isEditing) ...[
+                Consumer(
+                  builder: (context, ref, child) {
+                    final filieresAsync = ref.watch(filiereNotifierProvider);
+                    return filieresAsync.when(
+                      data: (filieres) {
+                        // Filtrer pour ne pas afficher la filière courante (déjà implicite)
+                        final otherFilieres = filieres
+                            .where((f) => f.id != widget.filiereId)
+                            .toList();
+
+                        if (otherFilieres.isEmpty) return const SizedBox.shrink();
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Ajouter également à d\'autres filières :',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 8),
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey.shade300),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Column(
+                                children: otherFilieres.map((filiere) {
+                                  final isSelected =
+                                      _selectedFiliereIds.contains(filiere.id);
+                                  return CheckboxListTile(
+                                    title: Text(filiere.name),
+                                    value: isSelected,
+                                    onChanged: (bool? value) {
+                                      setState(() {
+                                        if (value == true) {
+                                          _selectedFiliereIds.add(filiere.id);
+                                        } else {
+                                          _selectedFiliereIds.remove(filiere.id);
+                                        }
+                                      });
+                                    },
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+                          ],
+                        );
+                      },
+                      loading: () => const LinearProgressIndicator(),
+                      error: (_, __) => const SizedBox.shrink(),
+                    );
+                  },
+                ),
+              ],
 
               // 4. Aperçu des notifications (Reactive)
               Container(
@@ -221,8 +285,8 @@ class _AddEpreuvePageState extends ConsumerState<AddEpreuvePage> {
                             } else {
                               await ref
                                   .read(filiereNotifierProvider.notifier)
-                                  .addEpreuve(
-                                    widget.filiereId,
+                                  .addEpreuveToFilieres(
+                                    _selectedFiliereIds,
                                     _nameController.text,
                                     _selectedDate,
                                     startDateTime,
