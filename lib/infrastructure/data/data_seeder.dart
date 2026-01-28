@@ -67,13 +67,18 @@ class DataSeeder {
           );
 
           // Planification des notifications
-          try {
-            final scheduledIds = await notificationScheduleService.scheduleNotificationsForEpreuve(epreuve);
-            epreuve = epreuve.copyWith(notificationIds: scheduledIds);
-            debugPrint('DataSeeder: Notifications planifiées pour ${epreuve.name} (IDs: $scheduledIds)');
-          } catch (e) {
-            debugPrint('DataSeeder: Erreur lors de la planification des notifications pour ${epreuve.name}: $e');
-            // On continue même si la notif échoue
+          // On ne planifie que si l'épreuve n'est pas terminée
+          if (seedDateService.isFuture(epreuve.endTime)) {
+            try {
+              final scheduledIds = await notificationScheduleService.scheduleNotificationsForEpreuve(epreuve);
+              epreuve = epreuve.copyWith(notificationIds: scheduledIds);
+              debugPrint('DataSeeder: Notifications planifiées pour ${epreuve.name} (IDs: $scheduledIds)');
+            } catch (e) {
+              debugPrint('DataSeeder: Erreur lors de la planification des notifications pour ${epreuve.name}: $e');
+              // On continue même si la notif échoue
+            }
+          } else {
+             debugPrint('DataSeeder: Épreuve passée ou terminée, pas de notification pour ${epreuve.name}');
           }
           
           await repository.addEpreuve(epreuve);
