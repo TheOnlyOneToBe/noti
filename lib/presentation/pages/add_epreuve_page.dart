@@ -24,6 +24,7 @@ class _AddEpreuvePageState extends ConsumerState<AddEpreuvePage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   
+  bool _isLoading = false;
   late DateTime _selectedDate;
   late TimeOfDay _startTime;
   late TimeOfDay _endTime;
@@ -192,42 +193,77 @@ class _AddEpreuvePageState extends ConsumerState<AddEpreuvePage> {
 
               // 5. Validation Button
               FilledButton.icon(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    if (endDateTime.isBefore(startDateTime)) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('La fin doit être après le début')),
-                      );
-                      return;
-                    }
+                onPressed: _isLoading
+                    ? null
+                    : () async {
+                        if (_formKey.currentState!.validate()) {
+                          if (endDateTime.isBefore(startDateTime)) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('La fin doit être après le début')),
+                            );
+                            return;
+                          }
 
-                    if (isEditing) {
-                      final updatedEpreuve = widget.epreuve!.copyWith(
-                        name: _nameController.text,
-                        date: _selectedDate,
-                        startTime: startDateTime,
-                        endTime: endDateTime,
-                      );
-                      await ref.read(filiereNotifierProvider.notifier).updateEpreuve(updatedEpreuve);
-                    } else {
-                      await ref.read(filiereNotifierProvider.notifier).addEpreuve(
-                            widget.filiereId,
-                            _nameController.text,
-                            _selectedDate,
-                            startDateTime,
-                            endDateTime,
-                          );
-                    }
-                    
-                    if (context.mounted) {
-                      context.pop();
-                    }
-                  }
-                },
-                icon: Icon(isEditing ? Icons.save : Icons.check),
+                          setState(() => _isLoading = true);
+
+                          try {
+                            if (isEditing) {
+                              final updatedEpreuve = widget.epreuve!.copyWith(
+                                name: _nameController.text,
+                                date: _selectedDate,
+                                startTime: startDateTime,
+                                endTime: endDateTime,
+                              );
+                              await ref
+                                  .read(filiereNotifierProvider.notifier)
+                                  .updateEpreuve(updatedEpreuve);
+                            } else {
+                              await ref
+                                  .read(filiereNotifierProvider.notifier)
+                                  .addEpreuve(
+                                    widget.filiereId,
+                                    _nameController.text,
+                                    _selectedDate,
+                                    startDateTime,
+                                    endDateTime,
+                                  );
+                            }
+
+                            if (context.mounted) {
+                              context.pop();
+                            }
+                          } catch (e) {
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Erreur : $e'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          } finally {
+                            if (mounted) {
+                              setState(() => _isLoading = false);
+                            }
+                          }
+                        }
+                      },
+                icon: _isLoading
+                    ? const SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
+                    : Icon(isEditing ? Icons.save : Icons.check),
                 label: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Text(isEditing ? 'Enregistrer les modifications' : 'Planifier l\'épreuve'),
+                  child: Text(isEditing
+                      ? 'Enregistrer les modifications'
+                      : 'Planifier l\'épreuve'),
                 ),
               ),
             ],
